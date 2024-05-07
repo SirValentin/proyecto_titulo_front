@@ -1,0 +1,31 @@
+.nav-bar-item {
+  @apply flex items-center space-x-2.5 py-1.5 cursor-pointer text-gray-800 uppercase text-xs font-bold;
+
+  &:hover {
+    @apply border-l-8 border-gray-100;
+  }
+
+  &-disabled {
+    @apply opacity-40 cursor-default;
+
+    &:hover {
+      @apply border-transparent;
+    }
+  }
+}
+
+.nav-bar-subitem {
+  @apply flex items-center space-x-2.5 py-1.5 pl-11 hover:pl-9 cursor-pointer text-gray-800 text-xs font-semibold hover:border-l-8 hover:border-skin-primary-100;
+}
+
+.nav-bar-item-modal {
+  @apply flex items-center px-4 py-1.5 cursor-pointer text-gray-800 uppercase text-xs font-semibold bg-skin-secondary-60;
+
+  &:hover {
+    @apply bg-skin-primary-60;
+  }
+
+  &-active {
+    @apply border-l-8 pl-0 pl-2 border-skin-primary-100 bg-white font-bold;
+  }
+}

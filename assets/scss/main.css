@@ -1,0 +1,15 @@
+@import "./ui/multiselect.scss";
+@import "./ui/navbar.scss";
+@import "./ui/button.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-100: 31, 171, 137;
+    --color-primary-60: 98, 210, 162;
+    --color-secondary-100: 157, 243, 196;
+    --color-secondary-60: 215, 251, 232;
+  }
+}
