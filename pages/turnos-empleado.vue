@@ -1,5 +1,7 @@
 <template>
-  <div>Pagina en construccion...</div>
+  <div>
+    <TurnosEmpleados />
+  </div>
 </template>
 
 <script setup>

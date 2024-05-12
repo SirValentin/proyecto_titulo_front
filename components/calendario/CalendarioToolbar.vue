@@ -1,14 +1,15 @@
 <template>
   <div class="w-full flex justify-between">
     <div>
-      <button
+      <Button
+        label="Asignar turnos"
+        :disabled="!turnosSeleccionados.length"
         class="bg-skin-primary-100 px-2 py-1 text-white text-lg font-bold rounded-xl w-44 h-10"
-      >
-        Asignar turnos
-      </button>
+        @click="asignarTurnos"
+      />
     </div>
     <div>
-      <div class="h-10">
+      <div v-show="false" class="h-10">
         <ClientOnly>
           <VueMultiselect
             v-model="cargosSeleccionados"
@@ -68,13 +69,18 @@ import VueMultiselect from "vue-multiselect";
 import { useCalendarStore } from "../../store/calendario";
 
 const storeCalendario = useCalendarStore();
-
-const listaFechas = storeCalendario.getListaFechas;
+const { getListaFechas: listaFechas, turnosSeleccionados } =
+  storeToRefs(storeCalendario);
 const cargosSeleccionados = ref([]);
 const locationOptions = [
   { text: "maipu", value: 1 },
   { text: "maipu2", value: 2 },
 ];
+
+const asignarTurnos = () => {
+  useTurnoStore().asignarTurnos(turnosSeleccionados.value);
+  turnosSeleccionados.value = [];
+};
 </script>
 
 <style></style>

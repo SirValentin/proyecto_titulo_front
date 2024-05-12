@@ -7,23 +7,101 @@
     @mouseleave="openNavbar = false"
   >
     <div class="mb-6">
-      <div
-        class="space-y-2 text-center"
-        :class="openNavbar ? 'w-20 mx-auto' : ''"
-      >
-        <h2 class="font-bold text-lg">
-          <!-- <span v-show="!openNavbar">{{ initials }}</span> -->
-          <span v-show="!openNavbar">hola</span>
-          <!-- <span v-show="openNavbar">{{ organization?.name }}</span> -->
-          <span v-show="openNavbar">hola</span>
+      <div class="space-y-2" :class="openNavbar ? 'w-20' : ''">
+        <h2 class="font-bold text-lg flex flex-col">
+          <span v-show="openNavbar">{{
+            data.es_empleado ? "Empleado" : "Admin"
+          }}</span>
+          <span v-show="!openNavbar">{{ data.email }}</span>
+          <span v-show="openNavbar">{{ data.email }}</span>
         </h2>
       </div>
     </div>
-    <ul :class="{ 'space-y-1': !openNavbar }">
+    <ul v-if="data.es_empleado" :class="{ 'space-y-1': !openNavbar }">
+      <!-- Mis turnos -->
+      <li>
+        <NuxtLink
+          to="/turnos-empleado"
+          :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
+          class="nav-bar-item"
+        >
+          <span>
+            <svg
+              class="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </span>
+          <h1 v-show="openNavbar">Mis turnos</h1>
+        </NuxtLink>
+      </li>
+      <!-- Turnos Compañeros -->
+      <li>
+        <NuxtLink
+          to="/turnos-empleado"
+          :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
+          class="nav-bar-item"
+        >
+          <span>
+            <svg
+              class="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </span>
+          <h1 v-show="openNavbar">Turnos compañeros</h1>
+        </NuxtLink>
+      </li>
+      <!-- Solicitudes -->
+      <li>
+        <NuxtLink
+          to="/turnos-empleado"
+          :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
+          class="nav-bar-item"
+        >
+          <span>
+            <svg
+              class="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </span>
+          <h1 v-show="openNavbar">Solicitudes</h1>
+        </NuxtLink>
+      </li>
+    </ul>
+    <ul v-else :class="{ 'space-y-1': !openNavbar }">
       <!-- Calendario -->
       <li>
         <NuxtLink
-          to="/calendario"
+          to="/"
           :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
           class="nav-bar-item"
         >
@@ -105,7 +183,7 @@
         <button
           class="nav-bar-item w-full"
           :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
-          @click="logOut"
+          @click="cerrarSesion"
         >
           <span>
             <svg
@@ -130,64 +208,20 @@
   </nav>
 </template>
 <script setup>
-// import { storeToRefs } from "pinia";
-// const navbarStore = useNavbarStore();
-// const organizationStore = useOrganizationStore();
-// const { openNavbar } = storeToRefs(navbarStore);
 const openNavbar = ref(false);
-// const { organization } = storeToRefs(organizationStore);
-// const { $loadingplugin } = useNuxtApp();
 
 //Data
-// const { signOut } = useAuth();
-// const openSubmenuEmpresa = ref(false);
-// const openSubmenuPlantillas = ref(false);
-// const openSubmenuConfiguracion = ref(false);
-
-// watch(openSubmenuEmpresa, () => {
-//   if (openSubmenuEmpresa.value) {
-//     openSubmenuPlantillas.value = false;
-//     openSubmenuConfiguracion.value = false;
-//   }
-// });
-// watch(openSubmenuPlantillas, () => {
-//   if (openSubmenuPlantillas.value) {
-//     openSubmenuEmpresa.value = false;
-//     openSubmenuConfiguracion.value = false;
-//   }
-// });
-// watch(openSubmenuConfiguracion, () => {
-//   if (openSubmenuConfiguracion.value) {
-//     openSubmenuPlantillas.value = false;
-//     openSubmenuEmpresa.value = false;
-//   }
-// });
-//Computeds
-// const initials = computed(() => {
-//   const name = organization.value?.name;
-//   if (!name) return "";
-//   const spliName = name.split(" ");
-//   let initials;
-//   if (spliName.length > 1) {
-//     initials = spliName.map((word) => word.slice(0, 1));
-//   } else {
-//     initials = spliName[0].slice(0, 2);
-//   }
-//   return initials;
-// });
+const { signOut, data } = useAuth();
 
 //Methods
-
-// const logOut = async () => {
-//   $loadingplugin.start();
-//   await signOut();
-//   const { data, error } = await useMyFetch2.post("auth/token/logout/");
-//   if (data) {
-//     // process data
-//     await signOut();
-//   } else if (error) {
-//     // errorpage
-//     console.log(error.statusCode);
-//   }
-// };
+async function cerrarSesion() {
+  await signOut({ callbackUrl: "/login" });
+  useEmpleadoStore().$reset();
+  useSucursalStore().$reset();
+  useCargoStore().$reset();
+  useContratoStore().$reset();
+  useJornadaStore().$reset();
+  useTurnoStore().$reset();
+  useCalendarStore().$reset();
+}
 </script>

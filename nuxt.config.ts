@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    "dayjs-nuxt",
-    "@pinia/nuxt",
+    ["dayjs-nuxt", { autoImports: ["useDayjs"] }],
+    ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
     "nuxt-primevue",
     "@sidebase/nuxt-auth",
   ],
@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         process.env.NUXT_PUBLIC_API_BASE || "http://127.0.0.1:8000/api/v1",
     },
   },
+  imports: { dirs: ["store"] },
   dayjs: {
     locales: ["es"],
     plugins: [
@@ -39,8 +40,11 @@ export default defineNuxtConfig({
         "ColumnGroup",
         "Row",
         "InputText",
+        "InputNumber",
+        "InputMask",
         "TabView",
         "TabPanel",
+        "Dropdown",
       ],
     },
     options: {},
@@ -72,6 +76,7 @@ export default defineNuxtConfig({
       token: {
         type: "Token ",
         signInResponseTokenPointer: "/auth_token",
+        maxAgeInSeconds: 60 * 60,
       },
     },
   },

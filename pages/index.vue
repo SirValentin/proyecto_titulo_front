@@ -1,19 +1,6 @@
 <template>
-  <div class="h-screen">
-    <TabView>
-      <TabPanel header="Sucursales">
-        <Sucursales />
-      </TabPanel>
-      <TabPanel header="Cargos">
-        <Cargos />
-      </TabPanel>
-      <TabPanel header="Contratos">
-        <Contratos />
-      </TabPanel>
-      <TabPanel header="Empleados">
-        <Empleados />
-      </TabPanel>
-    </TabView>
+  <div class="">
+    <Calendario />
   </div>
 </template>
 
@@ -21,6 +8,11 @@
 definePageMeta({
   layout: "navbar",
 });
+if (!useEmpleadoStore().listaEmpleados) {
+  const { data: dataEmpleado } = await useAsyncData("empleados", () =>
+    useEmpleadoStore().setEmpleados()
+  );
+}
 if (!useSucursalStore().listaSucursales) {
   const { data: dataSucursal } = await useAsyncData("sucursales", () =>
     useSucursalStore().setSucursales()
@@ -39,11 +31,6 @@ if (!useContratoStore().listaContratos) {
 if (!useJornadaStore().listaJornadas) {
   const { data: dataJornada } = await useAsyncData("jornadas", () =>
     useJornadaStore().setJornada()
-  );
-}
-if (!useEmpleadoStore().listaEmpleados) {
-  const { data: dataEmpleado } = await useAsyncData("empleados", () =>
-    useEmpleadoStore().setEmpleados()
   );
 }
 </script>

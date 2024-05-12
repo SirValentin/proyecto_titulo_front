@@ -1,12 +1,8 @@
 import dayjs from "dayjs";
 export const useCalendarStore = defineStore("calendar", {
   state: () => ({
-    currentDay: null,
-    calendarLocationSelected: null,
-    calendarPositionSelected: null,
-    selectedAssignedTurns: [],
-    selectedAssignedCells: [],
-    showLoading: false,
+    celdasSeleccionadas: [],
+    turnosSeleccionados: [],
     listaFechas: [],
   }),
   getters: {
@@ -19,23 +15,38 @@ export const useCalendarStore = defineStore("calendar", {
       });
       return lista;
     },
-    // getSelectedAssignedCells(state) {
-    //   return state.selectedAssignedCells;
-    // },
-    // getloading(state) {
-    //   return state.showLoading;
-    // },
-    // getDateRangeFromSelectedCells(state) {
-    //   return [
-    //     ...new Set(state.selectedAssignedCells.map((cell) => cell.stringDate)),
-    //   ].sort((a, b) => new Date(a) - new Date(b));
-    // },
-    // getCurrentDay(state) {
-    //   const day = state.currentDay();
-    //   return day;
-    // },
+    getCeldasSeleccionadas(state) {
+      return state.celdasSeleccionadas;
+    },
+    getTurnosSeleccionadas(state) {
+      return state.turnosSeleccionados;
+    },
   },
-  actions: {},
+  actions: {
+    manejadorCelda(celda) {
+      const indexCelda = this.celdasSeleccionadas.findIndex((celdaStore) => {
+        return (
+          celdaStore.empleado === celda.empleado &&
+          celdaStore.fecha === celda.fecha
+        );
+      });
+      if (indexCelda !== -1) {
+        this.celdasSeleccionadas.splice(indexCelda, 1);
+      } else {
+        this.celdasSeleccionadas.push(celda);
+      }
+    },
+    manejadorTurno(turno) {
+      const indexTurno = this.turnosSeleccionados.findIndex((turnoStore) => {
+        return turnoStore === turno;
+      });
+      if (indexTurno !== -1) {
+        this.turnosSeleccionados.splice(indexTurno, 1);
+      } else {
+        this.turnosSeleccionados.push(turno);
+      }
+    },
+  },
 });
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useCalendarStore, import.meta.hot));

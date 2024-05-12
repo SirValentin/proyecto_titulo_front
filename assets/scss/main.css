@@ -6,6 +6,13 @@
 @tailwind utilities;
 
 @layer base {
+  input {
+    border-color: revert-layer;
+  }
+  button {
+    background-color: revert-layer;
+    color: revert-layer;
+  }
   :root {
     --color-primary-100: 31, 171, 137;
     --color-primary-60: 98, 210, 162;

@@ -9,7 +9,7 @@ definePageMeta({
   layout: "centrado",
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/calendario",
+    navigateAuthenticatedTo: "/",
   },
 });
 </script>

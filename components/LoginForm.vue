@@ -49,7 +49,7 @@ async function signInWithCredentials() {
     password: password.value,
   };
   try {
-    await signIn(credentials, { callbackUrl: "/calendario" });
+    await signIn(credentials, { callbackUrl: "/" });
     alert("Successfully logged in!");
   } catch (error) {
     console.error(error);
