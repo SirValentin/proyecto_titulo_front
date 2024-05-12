@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTable
-      :value="listaCargos"
+      :value="getCargos"
       :stripedRows="true"
       tableStyle="min-width: 100%"
     >
@@ -52,8 +52,7 @@
 <script setup>
 // Store
 const storeCargo = useCargoStore();
-const listaCargos = storeCargo.getCargos;
-const { formCrearCargoModal } = storeToRefs(storeCargo);
+const { formCrearCargoModal, getCargos } = storeToRefs(storeCargo);
 // Data
 const columnas = [
   { field: "nombre", header: "Cargo" },

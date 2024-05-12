@@ -53,11 +53,10 @@
 const storeJornada = useJornadaStore();
 const listaJornadas = storeJornada.getJornadas;
 const storeContrato = useContratoStore();
-const listaContratos = storeContrato.getContratos;
-const { formCrearContratoModal } = storeToRefs(storeContrato);
+const { formCrearContratoModal, getContratos } = storeToRefs(storeContrato);
 // Data
 const itemsContratos = computed(() => {
-  return listaContratos.map((contrato) => {
+  return getContratos.value.map((contrato) => {
     const tipoJornada = listaJornadas.find((j) => j.id === contrato.tipo);
     return { ...contrato, tipo: tipoJornada ? tipoJornada.nombre_tipo : "" };
   });

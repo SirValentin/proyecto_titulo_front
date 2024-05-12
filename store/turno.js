@@ -10,7 +10,6 @@ export const useTurnoStore = defineStore("turno", {
   },
   actions: {
     async setTurnos(body) {
-      console.log("store");
       try {
         const data = await useMyFetch("POST", "/turno/lista_turnos/", {
           body: body,
@@ -28,7 +27,7 @@ export const useTurnoStore = defineStore("turno", {
           body: body,
         });
         if (data && !this.listaTurnos.length) {
-          this.listaTurnos = [data];
+          this.listaTurnos = data;
         } else if (data) {
           this.listaTurnos = this.listaTurnos.concat(data);
         }

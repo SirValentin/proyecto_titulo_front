@@ -116,6 +116,7 @@ const guardar = async () => {
       seleccionados: fechasPorEmpleado,
     });
     await useTurnoStore().crearTurno(body);
+    celdasSeleccionadas.value = [];
     cerrarModal();
   } catch (error) {
     console.log(error);

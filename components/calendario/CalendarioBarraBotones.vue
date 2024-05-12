@@ -61,6 +61,7 @@ const crearTurno = () => {
 };
 const borrarTurno = () => {
   storeTurno.borrarTurno(turnosSeleccionados.value);
+  turnosSeleccionados.value = [];
 };
 </script>
 

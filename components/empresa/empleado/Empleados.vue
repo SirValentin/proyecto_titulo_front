@@ -51,10 +51,9 @@ const storeEmpleado = useEmpleadoStore();
 const storeSucursal = useSucursalStore();
 const storeCargo = useCargoStore();
 
-const listaEmpleados = storeEmpleado.getEmpleados;
 const listaSucursales = storeSucursal.getSucursales;
 const listaCargos = storeCargo.getCargos;
-const { formCrearEmpleadoModal } = storeToRefs(storeEmpleado);
+const { formCrearEmpleadoModal, getEmpleados } = storeToRefs(storeEmpleado);
 
 const columnas = [
   { field: "rut", header: "Rut" },
@@ -64,12 +63,14 @@ const columnas = [
   { field: "cargo", header: "Cargo" },
   { field: "id", header: "Acciones" },
 ];
-const items = listaEmpleados.map((empleado) => {
-  const sucursal = listaSucursales.find(
-    (sucursal) => sucursal.id === empleado.sucursal
-  );
-  const cargo = listaCargos.find((cargo) => cargo.id === empleado.cargo);
-  return { ...empleado, sucursal: sucursal?.nombre, cargo: cargo?.nombre };
+const items = computed(() => {
+  return getEmpleados.value.map((empleado) => {
+    const sucursal = listaSucursales.find(
+      (sucursal) => sucursal.id === empleado.sucursal
+    );
+    const cargo = listaCargos.find((cargo) => cargo.id === empleado.cargo);
+    return { ...empleado, sucursal: sucursal?.nombre, cargo: cargo?.nombre };
+  });
 });
 </script>
 

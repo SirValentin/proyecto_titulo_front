@@ -194,7 +194,6 @@ const verificarRut = (rut) => {
     // en otro caso el digito verificador debe ser el resto
     rutValido.value = +digit === res;
   }
-  console.log(rutValido.value);
 };
 const formatearRut = (rut) => {
   // Eliminar guiones y puntos y convertir a mayúsculas

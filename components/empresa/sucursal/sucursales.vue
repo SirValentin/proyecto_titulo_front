@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <DataTable
-      :value="listaSucursales"
+      :value="getSucursales"
       :stripedRows="true"
       tableStyle="min-width: 100%"
     >
@@ -54,8 +54,7 @@ import { storeToRefs } from "pinia";
 import { useSucursalStore } from "../../../store/sucursal";
 // Store
 const storeSucursal = useSucursalStore();
-const listaSucursales = storeSucursal.getSucursales;
-const { formCrearSucursalModal } = storeToRefs(storeSucursal);
+const { formCrearSucursalModal, getSucursales } = storeToRefs(storeSucursal);
 
 // Data
 const visible = ref(false);
@@ -66,18 +65,8 @@ const columnas = [
 ];
 
 async function borrarItem(item) {
-  // console.log(item);
   await storeSucursal.borrarSucursal(item);
 }
-// ciclo
-// if (!storeSucursal.listaSucursales) {
-//   console.log(storeSucursal.listaSucursales);
-//   await storeSucursal.setSucursales();
-// }
-// if (!storeSucursal.$store.listaSucursales) {
-//   console.log("no hay");
-// }
-// onMounted(() => {});
 </script>
 
 <style></style>

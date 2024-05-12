@@ -6,8 +6,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     data.value.es_empleado &&
     !paginasEmpleado.includes(to.path)
   ) {
-    console.log("hola");
-
     return navigateTo("/turnos-empleado");
   } else {
     return;

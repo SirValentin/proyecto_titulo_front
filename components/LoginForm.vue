@@ -50,7 +50,7 @@ async function signInWithCredentials() {
   };
   try {
     await signIn(credentials, { callbackUrl: "/" });
-    alert("Successfully logged in!");
+    alert("Bienvenido!");
   } catch (error) {
     console.error(error);
   }
@@ -69,7 +69,6 @@ async function submit() {
     }),
   })
     .then((response) => {
-      console.log(response);
       router.push({ path: "/login" });
     })
     .catch((error) => console.log(error));
