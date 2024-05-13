@@ -4,11 +4,14 @@ export const useCalendarStore = defineStore("calendar", {
     celdasSeleccionadas: [],
     turnosSeleccionados: [],
     listaFechas: [],
+    fechaCalendario: "",
   }),
   getters: {
-    getListaFechas() {
-      const hoy = dayjs();
-      const primerDiaSemana = hoy.startOf("week");
+    getListaFechas(state) {
+      if (!state.fechaCalendario) {
+        return [];
+      }
+      const primerDiaSemana = state.fechaCalendario.startOf("week");
       const lista = Array.from(Array(7).keys(), (n) => {
         const diaSemana = primerDiaSemana.add(n, "day");
         return diaSemana.format("YYYY-MM-DD");
@@ -23,6 +26,9 @@ export const useCalendarStore = defineStore("calendar", {
     },
   },
   actions: {
+    setFechaCalendario(nuevaFecha) {
+      this.fechaCalendario = nuevaFecha;
+    },
     manejadorCelda(celda) {
       const indexCelda = this.celdasSeleccionadas.findIndex((celdaStore) => {
         return (

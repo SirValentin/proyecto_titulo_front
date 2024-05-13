@@ -30,7 +30,7 @@ const { getTurnos } = storeToRefs(storeTurno);
 const turnosEmpleado = computed(() => {
   return getTurnos.value.filter((turn) => turn.empleado === props.empleado.id);
 });
-const listaFechas = storeCalendario.getListaFechas;
+const { getListaFechas: listaFechas } = storeToRefs(storeCalendario);
 </script>
 
 <style></style>

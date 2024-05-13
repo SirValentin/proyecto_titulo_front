@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <CalendarioToolbar />
     <div>
-      <FechasCalendario />
+      <FechasCalendario :listaEmpleados="listaEmpleados" />
       <CalendarioBarraBotones :listaEmpleados="listaEmpleados" />
       <CalendarioEmpleados :listaEmpleados="listaEmpleados" />
       <p v-show="!listaEmpleados.length">
@@ -16,6 +16,12 @@
 <script setup>
 const storeEmpleados = useEmpleadoStore();
 const listaEmpleados = storeEmpleados.getEmpleados;
+const storeCalendario = useCalendarStore();
+
+onMounted(() => {
+  const hoy = useDayjs();
+  storeCalendario.setFechaCalendario(hoy());
+});
 </script>
 
 <style></style>

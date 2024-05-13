@@ -3,8 +3,11 @@
     <div
       class="col-span-4 h-full flex items-center w-full bg-skin-secondary-100 border border-gray-800"
     >
-      <div class="shadow w-full h-8 mr-1.5 flex items-center rounded">
-        <button class="bg-skin-secondary-100 px-1 py-1.5 rounded-l">
+      <div class="shadow w-full h-8 flex items-center rounded">
+        <button
+          class="bg-skin-secondary-100 px-1 py-1.5 rounded-l"
+          @click="fechaAnterior"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -23,9 +26,12 @@
         <div
           class="bg-white w-full h-full px-1 flex items-center justify-center"
         >
-          <p class="text-xs xl:text-base">01 JUNIO - 07 JUNIO</p>
+          <p class="text-xs xl:text-base">{{ textoSemana }}</p>
         </div>
-        <button class="bg-skin-secondary-100 px-1 py-1.5 rounded-r">
+        <button
+          class="bg-skin-secondary-100 px-1 py-1.5 rounded-r"
+          @click="fechaSiguiente"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -43,9 +49,12 @@
         </button>
       </div>
       <div>
-        <button class="h-7 xl:h-8 text-xs xl:text-base xl:py-2 px-1.5 xl:px-2">
+        <Button
+          class="h-7 xl:h-8 text-xs xl:text-base border"
+          @click="setFechaHoy"
+        >
           Hoy
-        </button>
+        </Button>
       </div>
     </div>
     <div class="col-span-21 grid grid-flow-col grid-cols-21">
@@ -54,7 +63,6 @@
         :key="fecha"
         class="col-span-3 border border-gray-800 text-xs xl:text-base flex justify-center items-center bg-skin-secondary-100"
       >
-        <!-- :class="{ 'rounded-l-md': index === 0, 'rounded-r-md': index === 6 }" -->
         <p>{{ $dayjs.weekdays(true)[index] }} {{ $dayjs(fecha).date() }}</p>
       </div>
     </div>
@@ -63,58 +71,52 @@
 
 <script setup>
 import { useCalendarStore } from "../../store/calendario";
+const props = defineProps({
+  listaEmpleados: {
+    type: Array,
+    default: [],
+  },
+});
 const storeCalendario = useCalendarStore();
+const storeTurno = useTurnoStore();
 
-const listaFechas = storeCalendario.getListaFechas;
-// import { calendarView } from "@/composables/useCalendarBase";
-// const emit = defineEmits(["fetch-turns"]);
-
-// const dayjs = useDayjs();
-// const sizeButtonToday = ref("sm");
-
-// onMounted(() => {
-//   if (window.screen.width >= 1280) {
-//     sizeButtonToday.value = "lg";
-//   }
-// });
-
+const { getListaFechas: listaFechas, fechaCalendario } =
+  storeToRefs(storeCalendario);
+const dayjs = useDayjs();
 // Computeds
-// const arrayDates = computed(() => {
-//   return viewDaysArray.value[0].interval;
-// });
-// const dateText = computed(() => {
-//   return `${viewDaysArray.value[0].mondayText} - ${viewDaysArray.value[0].sundayText}`;
-// });
-// const arrayWeekDays = computed(() => {
-//   const days =  dayjs.weekdays();
-//   if (days[0] === 'domingo') {
-
-//   }
-// });
+const textoSemana = computed(() => {
+  const inicioSemana = dayjs(listaFechas.value[0]).date();
+  const finalSemana = dayjs(listaFechas.value[6]).date();
+  const inicioMes = dayjs.monthsShort()[dayjs(listaFechas.value[0]).month()];
+  const finalMes = dayjs.monthsShort()[dayjs(listaFechas.value[6]).month()];
+  return `${inicioSemana} ${inicioMes} - ${finalSemana} ${finalMes}`;
+});
 
 // Methods
-// const next = () => {
-//   const currentDayStore = dayjs(useCalendarStore().$state.currentDay);
-//   const dayUpdated = currentDayStore
-//     .add(1, calendarView.value)
-//     .format("YYYY-MM-DD");
-//   useCalendarStore().setcurrentDay(dayUpdated);
-//   emit("fetch-turns");
-// };
-// const previous = () => {
-//   const currentDayStore = dayjs(useCalendarStore().$state.currentDay);
-//   const dayUpdated = currentDayStore
-//     .subtract(1, calendarView.value)
-//     .format("YYYY-MM-DD");
-//   useCalendarStore().setcurrentDay(dayUpdated);
-//   emit("fetch-turns");
-// };
-// const setToday = () => {
-//   const currentDayStore = dayjs();
-//   const dayUpdated = currentDayStore.format("YYYY-MM-DD");
-//   useCalendarStore().setcurrentDay(dayUpdated);
-//   emit("fetch-turns");
-// };
+const fechaAnterior = () => {
+  const semanaAnterior = fechaCalendario.value.subtract(1, "week");
+  storeCalendario.setFechaCalendario(semanaAnterior);
+  actualizarTurnos();
+};
+const fechaSiguiente = () => {
+  const semanaSiguiente = fechaCalendario.value.add(1, "week");
+  storeCalendario.setFechaCalendario(semanaSiguiente);
+  actualizarTurnos();
+};
+const setFechaHoy = () => {
+  const hoy = dayjs();
+  storeCalendario.setFechaCalendario(hoy);
+  actualizarTurnos();
+};
+
+const actualizarTurnos = async () => {
+  const body = {
+    fecha_inicio: listaFechas.value[0],
+    fecha_final: listaFechas.value[listaFechas.value.length - 1],
+    empleados: props.listaEmpleados.map((empleado) => empleado.id),
+  };
+  await storeTurno.setTurnos(body);
+};
 </script>
 
 <style></style>
