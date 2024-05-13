@@ -33,7 +33,7 @@ export const useEmpleadoStore = defineStore("empleado", {
         console.log(error);
       }
     },
-    async borrarSucursal(idEmpleado) {
+    async borrarEmpleado(idEmpleado) {
       try {
         const response = await useMyFetch(
           "POST",

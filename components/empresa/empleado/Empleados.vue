@@ -57,6 +57,7 @@ const { formCrearEmpleadoModal, getEmpleados } = storeToRefs(storeEmpleado);
 
 const columnas = [
   { field: "rut", header: "Rut" },
+  { field: "email", header: "Email" },
   { field: "nombre", header: "Nombre" },
   { field: "apellido", header: "Apellido" },
   { field: "sucursal", header: "Sucursal" },
@@ -72,6 +73,10 @@ const items = computed(() => {
     return { ...empleado, sucursal: sucursal?.nombre, cargo: cargo?.nombre };
   });
 });
+
+async function borrarItem(item) {
+  await storeEmpleado.borrarEmpleado(item);
+}
 </script>
 
 <style></style>

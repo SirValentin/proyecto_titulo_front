@@ -14,7 +14,7 @@ export const useTurnoStore = defineStore("turno", {
         const data = await useMyFetch("POST", "/turno/lista_turnos/", {
           body: body,
         });
-        if (data && !this.listaTurnos.length) {
+        if (data) {
           this.listaTurnos = data;
         }
       } catch (error) {
