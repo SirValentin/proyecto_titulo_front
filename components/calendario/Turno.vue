@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full flex flex-col items-center justify-center cursor-pointer"
+    class="h-full flex flex-col items-center justify-center cursor-pointer text-xs lg:text-base"
     :class="[
       seleccionado
         ? 'border-4 border-skin-primary-100'

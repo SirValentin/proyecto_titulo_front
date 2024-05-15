@@ -3,15 +3,22 @@
     <div
       class="col-span-1 flex flex-col items-center justify-center bg-skin-secondary-100 border border-gray-700"
     >
-      <p class="capitalize">{{ dayjs.weekdays()[dayjs(fecha).day()] }}</p>
-      <p class="text-2xl">{{ dayjs(fecha).date() }}</p>
-      <p class="uppercase">{{ dayjs.months()[dayjs(fecha).month()] }}</p>
+      <p class="capitalize text-sm sm:text-base">
+        {{ dayjs.weekdays()[dayjs(fecha).day()] }}
+      </p>
+      <p class="text-xl sm:text-2xl">{{ dayjs(fecha).date() }}</p>
+      <p class="uppercase text-sm sm:text-base">
+        {{ dayjs.months()[dayjs(fecha).month()] }}
+      </p>
     </div>
-    <div v-if="turno" class="col-span-4 grid grid-cols-4 bg-skin-secondary-100">
-      <div class="flex justify-center items-center border border-gray-700">
+    <div
+      v-if="turno"
+      class="col-span-4 grid grid-cols-4 bg-skin-secondary-100 text-sm sm:text-base"
+    >
+      <div class="flex justify-center items-center border border-gray-700 p-1">
         <p>{{ turno.hora_inicio }} - {{ turno.hora_final }}</p>
       </div>
-      <div class="flex justify-center items-center border border-gray-700">
+      <div class="flex justify-center items-center border border-gray-700 p-1">
         <p>{{ turno.colacion }} minutos</p>
       </div>
       <div class="flex justify-center items-center border border-gray-700">

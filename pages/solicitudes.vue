@@ -1,5 +1,5 @@
 <template>
-  <div>Pagina en construccion...</div>
+  <div><SolicitudesAdmin /></div>
 </template>
 
 <script setup>

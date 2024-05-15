@@ -24,9 +24,9 @@
           </svg>
         </button>
         <div
-          class="bg-white w-full h-full px-1 flex items-center justify-center"
+          class="bg-white w-full h-full px-1 items-center justify-center flex min-w-5 min-h-8"
         >
-          <p class="text-xs xl:text-base">{{ textoSemana }}</p>
+          <p class="text-xs 2xl:text-base hidden lg:block">{{ textoSemana }}</p>
         </div>
         <button
           class="bg-skin-secondary-100 px-1 py-1.5 rounded-r"

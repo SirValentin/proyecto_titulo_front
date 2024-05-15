@@ -17,14 +17,24 @@ const props = defineProps({
     default: [],
   },
 });
+const storeCalendario = useCalendarStore();
+const { getListaFechas } = storeToRefs(storeCalendario);
+const dayjs = useDayjs();
 onMounted(async () => {
-  const storeCalendario = useCalendarStore();
-  const { getListaFechas } = storeToRefs(storeCalendario);
-  const body = {
-    fecha_inicio: getListaFechas.value[0],
-    fecha_final: getListaFechas.value[getListaFechas.value.length - 1],
-    empleados: props.listaEmpleados.map((empleado) => empleado.id),
-  };
+  let body;
+  if (!getListaFechas.value.length) {
+    body = {
+      fecha_inicio: dayjs().startOf("week").format("YYYY-MM-DD"),
+      fecha_final: dayjs().endOf("week").format("YYYY-MM-DD"),
+      empleados: props.listaEmpleados.map((empleado) => empleado.id),
+    };
+  } else {
+    body = {
+      fecha_inicio: getListaFechas.value[0],
+      fecha_final: getListaFechas.value[getListaFechas.value.length - 1],
+      empleados: props.listaEmpleados.map((empleado) => empleado.id),
+    };
+  }
   if (!useTurnoStore().listaTurnos.length) {
     await useTurnoStore().setTurnos(body);
   }

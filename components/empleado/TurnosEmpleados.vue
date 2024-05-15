@@ -24,7 +24,7 @@
         </svg>
       </button>
       <div class="bg-white w-full h-full px-1 flex items-center justify-center">
-        <p class="text-xs xl:text-base">{{ textoSemana }}</p>
+        <p class="text-base">{{ textoSemana }}</p>
       </div>
       <button
         class="bg-skin-secondary-100 px-1 py-1.5 rounded-r"
@@ -96,6 +96,7 @@ const actualizarTurnos = () => {
     fecha_inicio: listaFechas.value[0],
     fecha_final: listaFechas.value[listaFechas.value.length - 1],
     empleados: [data.value.id_empleado],
+    solo_asignado: true,
   };
 
   usePerfilempleadoStore().setTurnos(body);

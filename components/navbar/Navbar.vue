@@ -73,7 +73,7 @@
       <!-- Solicitudes -->
       <li>
         <NuxtLink
-          to="/turnos-empleado"
+          to="/solicitudes-empleado"
           :class="openNavbar ? 'px-4 hover:pl-2' : 'px-0.5 justify-center'"
           class="nav-bar-item"
         >

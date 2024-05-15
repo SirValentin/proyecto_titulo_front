@@ -5,11 +5,11 @@
     <div
       class="col-span-4 border-r border-gray-800 flex justify-center items-center"
     >
-      <p class="text-lg">Empleados {{ listaEmpleados.length }}</p>
+      <p class="text-xs lg:text-lg">Empleados {{ listaEmpleados.length }}</p>
     </div>
     <div class="col-span-21 flex space-x-2 items-center px-4">
       <button
-        class="btn-primary h-7"
+        class="btn-primary h-7 text-xs lg:text-base"
         :class="{ 'opacity-50': !celdasSeleccionadas.length }"
         :disabled="!celdasSeleccionadas.length"
         @click="crearTurno"
